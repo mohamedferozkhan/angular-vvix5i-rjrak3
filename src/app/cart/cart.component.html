@@ -1,0 +1,19 @@
+<h3>Cart Page</h3>
+<a (click)="routeTo400()">404 Route</a>
+<a (click)="routeTo500()">500 Route</a>
+<a (click)="routeToGeneralErro()">4xx/5xx Route</a>
+<p>
+  <a [routerLink]="['/shipping']">Shipping Prices</a>
+</p>
+
+<div class="item" *ngFor="let item of items; index as productNumber">
+  <span>
+    {{productNumber +1}} {{ item.name }}
+  </span>
+  <span>
+    {{ item.price | currency: 'INR' }}
+  </span>
+  <button [style]="'background-color: red'" (click)="removeItem(productNumber)">
+    X
+  </button>
+</div>
