@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { CartService } from "../cart.service";
 import { LOCAL_STORAGE, StorageService } from "ngx-webstorage-service";
 import { Router } from "@angular/router";
@@ -10,11 +11,18 @@ import { Router } from "@angular/router";
 })
 export class CartComponent implements OnInit {
   items: [];
+  checkoutForm;
   constructor(
     private cartService: CartService,
+    private formBuilder: FormBuilder,
     private router: Router,
     @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) {}
+  ) {
+    this.checkoutForm = this.formBuilder.group({
+      name: "",
+      address: ""
+    });
+  }
 
   ngOnInit() {
     // this.items = this.cartService.getItems();
@@ -37,5 +45,12 @@ export class CartComponent implements OnInit {
 
   routeToGeneralErro() {
     this.router.navigateByUrl("error");
+  }
+
+  onSubmit(cutomerData) {
+    console.log(cutomerData);
+    this.items = [];
+    // this.checkoutForm.reset();
+    //call some API
   }
 }
